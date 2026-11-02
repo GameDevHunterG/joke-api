@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+app.use(express.static("public"))
 const port = 3000
 
 const jokes = [
@@ -18,4 +19,12 @@ const jokes = [
 app.get("/api/v1/random-joke", (_, response) => {
     index = Math.floor(Math.random() * jokes.length)
     response.send(jokes[index])
+})
+
+app.get("/", (_, response) => {
+    response.send("index.html", { root: "public" })
+})
+
+app.listen(port, () => {    
+    console.log(`Server running: http://localhost:${port}`)
 })
